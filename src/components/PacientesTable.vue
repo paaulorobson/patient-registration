@@ -73,7 +73,7 @@
 
             <button
               class="bg-red-500 hover:bg-red-400 text-white text-xs font-bold py-2 px-2 rounded"
-              @click="showModalConfirma"
+              @click="selectedPaciente(paciente.id)"
             >
               Deletar
             </button>
@@ -81,7 +81,12 @@
         </tr>
       </tbody>
     </table>
-    <ModalConfirma :openModal="showModal" @delete="deletePaciente" @close="showModalConfirma" />
+    <ModalConfirma
+      :paciente="pacientes"
+      :openModal="showModal"
+      @delete="deletePaciente"
+      @close="showModalConfirma"
+    />
   </div>
 </template>
 
@@ -89,7 +94,7 @@
 import ModalConfirma from './ModalConfirma.vue';
 import api from '../service/api';
 export default {
-  name: 'PacientesItem',
+  name: 'PacientesTable',
 
   components: {
     ModalConfirma,
@@ -98,6 +103,7 @@ export default {
   data() {
     return {
       busca: '',
+      pacienteSelecionado: null,
       showModal: false,
       pacientes: [],
     };
@@ -117,8 +123,12 @@ export default {
 
   methods: {
     async getPacientes() {
-      const { data } = await api.get('/pacientes');
-      this.pacientes = data;
+      try {
+        const { data } = await api.get('/pacientes');
+        this.pacientes = data;
+      } catch (error) {
+        console.warn(error);
+      }
     },
 
     getPacienteById(id) {
@@ -129,12 +139,24 @@ export default {
       console.log(`Paciente ${id}`);
     },
 
+    selectedPaciente(id) {
+      this.pacienteSelecionado = id;
+      this.showModalConfirma();
+    },
+
     showModalConfirma() {
       this.showModal = !this.showModal;
     },
 
-    deletePaciente(id) {
-      console.log(`Paciente ${id}`);
+    async deletePaciente() {
+      try {
+        await api.delete(`/pacientes/${this.pacienteSelecionado}`);
+        this.pacientes = this.pacientes.filter(
+          (paciente) => paciente.id !== this.pacienteSelecionado
+        );
+      } catch (error) {
+        console.warn(error);
+      }
       this.showModal = false;
     },
   },

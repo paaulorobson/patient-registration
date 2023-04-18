@@ -16,21 +16,6 @@
       }
     },
     {
-      "id": 2,
-      "nome": "Maria Oliveira",
-      "nomeMae": "Ana Santos Oliveira",
-      "dataNascimento": "1995-02-01",
-      "cpf": "987.654.321-00",
-      "cns": "987654321098765",
-      "endereco": {
-        "cep": "54321-876",
-        "logradouro": "Av. B",
-        "bairro": "Jardins",
-        "cidade": "Rio de Janeiro",
-        "estado": "RJ"
-      }
-    },
-    {
       "id": 3,
       "nome": "Pedro Santos",
       "nomeMae": "Marta Santos",
