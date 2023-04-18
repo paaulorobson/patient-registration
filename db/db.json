@@ -1,0 +1,49 @@
+{
+  "pacientes": [
+    {
+      "id": 1,
+      "nome": "João da Silva",
+      "nomeMae": "Maria Oliveira da Silva",
+      "dataNascimento": "1990-01-01",
+      "cpf": "123.456.789-00",
+      "cns": "123456789012345",
+      "endereco": {
+        "cep": "12345-678",
+        "logradouro": "Rua A",
+        "bairro": "Centro",
+        "cidade": "São Paulo",
+        "estado": "SP"
+      }
+    },
+    {
+      "id": 2,
+      "nome": "Maria Oliveira",
+      "nomeMae": "Ana Santos Oliveira",
+      "dataNascimento": "1995-02-01",
+      "cpf": "987.654.321-00",
+      "cns": "987654321098765",
+      "endereco": {
+        "cep": "54321-876",
+        "logradouro": "Av. B",
+        "bairro": "Jardins",
+        "cidade": "Rio de Janeiro",
+        "estado": "RJ"
+      }
+    },
+    {
+      "id": 3,
+      "nome": "Pedro Santos",
+      "nomeMae": "Marta Santos",
+      "dataNascimento": "1980-05-15",
+      "cpf": "456.789.123-00",
+      "cns": "456789123012345",
+      "endereco": {
+        "cep": "67890-123",
+        "logradouro": "Rua C",
+        "bairro": "Vila Mariana",
+        "cidade": "São Paulo",
+        "estado": "SP"
+      }
+    }
+  ]
+}
