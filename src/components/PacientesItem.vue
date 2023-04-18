@@ -54,12 +54,12 @@
             {{ paciente.id }}
           </td>
           <td class="py-4 px-6 text-gray-700">
-            {{ paciente.name }}
+            {{ paciente.nome }}
           </td>
           <td class="py-4 px-6 text-right">
             <button
               class="bg-green-500 hover:bg-green-400 text-white text-xs font-bold py-2 px-2 mr-2 rounded"
-              @click="getPaciente(paciente.id)"
+              @click="getPacienteById(paciente.id)"
             >
               Visualizar
             </button>
@@ -87,6 +87,7 @@
 
 <script>
 import ModalConfirma from './ModalConfirma.vue';
+import api from '../service/api';
 export default {
   name: 'PacientesItem',
 
@@ -98,37 +99,29 @@ export default {
     return {
       busca: '',
       showModal: false,
-      pacientes: [
-        {
-          id: 1,
-          name: 'Paulo Robson',
-        },
-        {
-          id: 2,
-          name: 'Neymar Junior',
-        },
-        {
-          id: 3,
-          name: 'Lionel Messi',
-        },
-        {
-          id: 4,
-          name: 'Cristiano Ronaldo',
-        },
-      ],
+      pacientes: [],
     };
   },
 
   computed: {
     pacientesFiltrado() {
       return this.pacientes.filter((item) =>
-        item.name.toLowerCase().includes(this.busca.toLowerCase())
+        item.nome.toLowerCase().includes(this.busca.toLowerCase())
       );
     },
   },
 
+  created() {
+    this.getPacientes();
+  },
+
   methods: {
-    getPaciente(id) {
+    async getPacientes() {
+      const { data } = await api.get('/pacientes');
+      this.pacientes = data;
+    },
+
+    getPacienteById(id) {
       console.log(`Paciente ${id}`);
     },
 
