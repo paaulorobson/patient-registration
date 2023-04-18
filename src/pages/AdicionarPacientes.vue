@@ -2,7 +2,7 @@
   <div>
     <h1 class="text-lg font-bold text-[#1C242D] text-left uppercase mt-5">Adicionar paciente</h1>
     <form class="mt-10">
-      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-1 sm:grid-cols-6">
         <div class="col-span-full">
           <label
             for="nome-paciente"

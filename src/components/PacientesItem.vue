@@ -73,7 +73,7 @@
 
             <button
               class="bg-red-500 hover:bg-red-400 text-white text-xs font-bold py-2 px-2 rounded"
-              @click="deletePaciente(paciente.id)"
+              @click="showModalConfirma"
             >
               Deletar
             </button>
@@ -81,16 +81,23 @@
         </tr>
       </tbody>
     </table>
+    <ModalConfirma :openModal="showModal" @delete="deletePaciente" @close="showModalConfirma" />
   </div>
 </template>
 
 <script>
+import ModalConfirma from './ModalConfirma.vue';
 export default {
   name: 'PacientesItem',
+
+  components: {
+    ModalConfirma,
+  },
 
   data() {
     return {
       busca: '',
+      showModal: false,
       pacientes: [
         {
           id: 1,
@@ -129,8 +136,13 @@ export default {
       console.log(`Paciente ${id}`);
     },
 
+    showModalConfirma() {
+      this.showModal = !this.showModal;
+    },
+
     deletePaciente(id) {
       console.log(`Paciente ${id}`);
+      this.showModal = false;
     },
   },
 };
