@@ -291,9 +291,12 @@
       </div>
       <div class="mt-6 flex items-center justify-end gap-x-6">
         <button
-          :disabled="formIncomplete"
           type="submit"
-          class="rounded-md bg-blue-500 px-3 py-2 text-right text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+          :class="{
+            'rounded-md bg-blue-500 px-3 w-40 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2': true,
+            'rounded-md bg-blue-500 opacity-50 w-40 text-center  pointer-events-none px-3 py-2  text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2':
+              formIncomplete,
+          }"
         >
           Salvar
         </button>
