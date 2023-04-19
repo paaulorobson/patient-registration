@@ -44,6 +44,81 @@
         "estado": "MA"
       },
       "id": 4
+    },
+    {
+      "nome": "Cristiano da silva",
+      "nomeMae": "Marinalva Alves Fernandes",
+      "dataNascimento": "21/10/1993",
+      "cpf": "052.590.863-33",
+      "cns": "123456712345566",
+      "endereco": {
+        "cep": "65054005",
+        "logradouro": "Estrada de Ribamar",
+        "bairro": "Forquilha",
+        "cidade": "São Luís",
+        "estado": "MA"
+      },
+      "id": 5
+    },
+    {
+      "nome": "Lucielen Fernandes",
+      "nomeMae": "Lucilda Neres",
+      "dataNascimento": "26/06/2003",
+      "cpf": "234.556.778-88",
+      "cns": "123446372734556",
+      "endereco": {
+        "cep": "65054005",
+        "logradouro": "Estrada de Ribamar",
+        "bairro": "Forquilha",
+        "cidade": "São Luís",
+        "estado": "MA"
+      },
+      "id": 6
+    },
+    {
+      "nome": "Fulado da silva",
+      "nomeMae": "Clotilde Matias",
+      "dataNascimento": "13/02/1994",
+      "cpf": "123.446.678-88",
+      "cns": "247478128575656",
+      "endereco": {
+        "cep": "65606130",
+        "logradouro": "Rua Itapecuru",
+        "bairro": "Centro",
+        "cidade": "Caxias",
+        "estado": "MA"
+      },
+      "id": 7
+    },
+    {
+      "nome": "Junior da Costa",
+      "nomeMae": "Marcia da Costa",
+      "dataNascimento": "30/01/2000",
+      "cpf": "124.456.546-77",
+      "cns": "348576823578667",
+      "endereco": {
+        "cep": "65606130",
+        "logradouro": "Rua Itapecuru",
+        "bairro": "Centro",
+        "cidade": "Caxias",
+        "estado": "MA"
+      },
+      "id": 8
+    },
+    {
+      "nome": "Junior da Costa",
+      "nomeMae": "Clotilde Matias",
+      "dataNascimento": "30/01/2000",
+      "cpf": "123.446.678-88",
+      "cns": "348576823578667",
+      "endereco": {
+        "cep": "65054005",
+        "logradouro": "Estrada de Ribamar",
+        "bairro": "Forquilha",
+        "cidade": "São Luís",
+        "estado": "MA"
+      },
+      "id": 9
     }
   ]
 }
