@@ -29,6 +29,21 @@
         "cidade": "São Paulo",
         "estado": "SP"
       }
+    },
+    {
+      "nome": "Paulo Robson Alves Fernandes",
+      "nomeMae": "Marinalva Alves Fernandes",
+      "dataNascimento": "21/10/1993",
+      "cpf": "052.590.863-33",
+      "cns": "1234567891011121415",
+      "endereco": {
+        "cep": "65054005",
+        "logradouro": "Estrada de Ribamar",
+        "bairro": "Forquilha",
+        "cidade": "São Luís",
+        "estado": "MA"
+      },
+      "id": 4
     }
   ]
 }

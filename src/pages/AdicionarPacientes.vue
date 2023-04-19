@@ -1,11 +1,11 @@
 <template>
   <div>
     <h1 class="text-lg font-bold text-[#1C242D] text-left uppercase mt-5">Adicionar paciente</h1>
-    <form class="mt-10">
+    <form class="mt-10" @submit.prevent="submitForm" :validation-schema="schema">
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-1 sm:grid-cols-6">
         <div class="col-span-full">
           <label
-            for="nome-paciente"
+            for="nomePaciente"
             class="block text-sm font-medium leading-6 text-gray-900 text-left"
           >
             Nome completo
@@ -13,11 +13,12 @@
           <div class="mt-2">
             <input
               type="text"
-              name="nome-paciente"
-              id="nome-paciente"
+              name="nomePaciente"
+              id="nomePaciente"
               v-model="nome"
               class="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6"
             />
+            <ErrorMessage name="nomePaciente" />
           </div>
         </div>
         <div class="col-span-full">
@@ -96,6 +97,7 @@
               name="cep"
               id="cep"
               v-model="endereco.cep"
+              @blur="buscarEndereco"
               class="block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6"
             />
           </div>
@@ -177,11 +179,19 @@
 </template>
 
 <script>
+import axios from 'axios';
+import api from '../service/api';
+import * as Yup from 'yup';
+
 export default {
   name: 'AdicionarPacientes',
 
   data() {
+    const schema = Yup.object({
+      nomePaciente: Yup.string().required,
+    });
     return {
+      schema,
       nome: '',
       nomeMae: '',
       dataNascimento: '',
@@ -195,6 +205,55 @@ export default {
         estado: '',
       },
     };
+  },
+
+  methods: {
+    async buscarEndereco() {
+      if (this.endereco.cep.length === 8) {
+        try {
+          const response = await axios.get(`https://viacep.com.br/ws/${this.endereco.cep}/json/`);
+          this.endereco.logradouro = response.data.logradouro;
+          this.endereco.bairro = response.data.bairro;
+          this.endereco.cidade = response.data.localidade;
+          this.endereco.estado = response.data.uf;
+        } catch (error) {
+          console.warn(error);
+        }
+      }
+    },
+
+    async submitForm() {
+      const data = {
+        nome: this.nome,
+        nomeMae: this.nomeMae,
+        dataNascimento: this.dataNascimento,
+        cpf: this.cpf,
+        cns: this.cns,
+        endereco: {
+          cep: this.endereco.cep,
+          logradouro: this.endereco.logradouro,
+          bairro: this.endereco.bairro,
+          cidade: this.endereco.cidade,
+          estado: this.endereco.estado,
+        },
+      };
+
+      try {
+        await api.post('/pacientes', data);
+        this.nome = '';
+        this.nomeMae = '';
+        this.dataNascimento = '';
+        this.cpf = '';
+        this.cns = '';
+        this.endereco.cep = '';
+        this.endereco.logradouro = '';
+        this.endereco.bairro = '';
+        this.endereco.cidade = '';
+        this.endereco.estado = '';
+      } catch (error) {
+        console.warn(error);
+      }
+    },
   },
 };
 </script>
