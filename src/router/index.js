@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Pacientes from '../pages/Pacientes.vue';
 
 Vue.use(VueRouter);
 
@@ -7,7 +8,7 @@ const routes = [
   {
     path: '/',
     name: 'pacientes',
-    component: () => import(/* webpackChunkName: "Pacientes" */ '../pages/Pacientes.vue'),
+    component: Pacientes,
   },
   {
     path: '/adicionar-pacientes',
@@ -17,6 +18,11 @@ const routes = [
         /* webpackChunkName: "AdicionarPacientes"
          */ '../pages/AdicionarPacientes.vue'
       ),
+  },
+  {
+    path: '/paciente/:id',
+    name: 'paciente',
+    component: () => import(/* webpackChunkName: "Paciente" */ '../pages/Paciente.vue'),
   },
 ];
 

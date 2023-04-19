@@ -132,7 +132,7 @@ export default {
     },
 
     getPacienteById(id) {
-      console.log(`Paciente ${id}`);
+      this.$router.push({ name: 'paciente', params: { id: id } });
     },
 
     editPaciente(id) {

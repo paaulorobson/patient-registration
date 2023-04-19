@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1 class="text-lg font-bold text-[#1C242D] text-left uppercase mt-5">Adicionar paciente</h1>
-    <form class="mt-10 pr-10 pb-10" @submit.prevent="submitForm">
-      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-1 sm:grid-cols-6">
+    <form class="mt-5 pr-10 pb-10" @submit.prevent="submitForm">
+      <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-1 sm:grid-cols-6">
         <div class="col-span-full">
           <label for="nome" class="block text-sm font-medium leading-6 text-gray-900 text-left">
             Nome completo
