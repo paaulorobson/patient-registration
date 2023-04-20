@@ -136,7 +136,7 @@ export default {
     },
 
     editPaciente(id) {
-      console.log(`Paciente ${id}`);
+      this.$router.push({ name: 'adicionar-pacientes', params: { id: id } });
     },
 
     selectedPaciente(id) {

@@ -11,7 +11,7 @@ const routes = [
     component: Pacientes,
   },
   {
-    path: '/adicionar-pacientes',
+    path: '/adicionar-pacientes/:id?',
     name: 'adicionar-pacientes',
     component: () =>
       import(

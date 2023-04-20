@@ -298,7 +298,7 @@
               formIncomplete,
           }"
         >
-          Salvar
+          {{ labelButton }}
         </button>
       </div>
     </form>
@@ -351,9 +351,21 @@ export default {
     estado: { required },
   },
 
+  mounted() {
+    this.getPaciente();
+  },
+
   computed: {
     formIncomplete() {
       return this.$v.$invalid;
+    },
+
+    labelButton() {
+      if (this.$route.params.id) {
+        return 'Editar';
+      } else {
+        return 'Salvar';
+      }
     },
   },
 
@@ -388,15 +400,45 @@ export default {
             estado: this.estado,
           },
         };
-
-        try {
-          await api.post('/pacientes', data);
-          document.querySelector('form').reset();
-        } catch (error) {
-          console.warn(error);
+        if (this.$route.params.id) {
+          const id = this.$route.params.id;
+          try {
+            await api.put(`/pacientes/${id}`, data);
+            document.querySelector('form').reset();
+          } catch (error) {
+            console.warn(error);
+          }
+        } else {
+          try {
+            await api.post('/pacientes', data);
+            document.querySelector('form').reset();
+          } catch (error) {
+            console.warn(error);
+          }
         }
       } else {
         this.$v.$touch();
+      }
+    },
+
+    async getPaciente() {
+      if (this.$route.params.id) {
+        const id = this.$route.params.id;
+        try {
+          const response = await api.get(`/pacientes/${id}`);
+          this.nome = response.data.nome;
+          this.nomeMae = response.data.nomeMae;
+          this.dataNascimento = response.data.dataNascimento;
+          this.cpf = response.data.cpf;
+          this.cns = response.data.cns;
+          this.cep = response.data.endereco.cep;
+          this.logradouro = response.data.endereco.logradouro;
+          this.bairro = response.data.endereco.bairro;
+          this.cidade = response.data.endereco.cidade;
+          this.estado = response.data.endereco.estado;
+        } catch (error) {
+          console.warn(error);
+        }
       }
     },
   },

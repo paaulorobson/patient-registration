@@ -8,7 +8,7 @@
       "cpf": "123.456.789-00",
       "cns": "123456789012345",
       "endereco": {
-        "cep": "12345-678",
+        "cep": "12345678",
         "logradouro": "Rua A",
         "bairro": "Centro",
         "cidade": "São Paulo",
@@ -23,7 +23,7 @@
       "cpf": "456.789.123-00",
       "cns": "456789123012345",
       "endereco": {
-        "cep": "67890-123",
+        "cep": "67890123",
         "logradouro": "Rua C",
         "bairro": "Vila Mariana",
         "cidade": "São Paulo",
@@ -59,6 +59,21 @@
         "estado": "MA"
       },
       "id": 5
+    },
+    {
+      "nome": "Luis Filipe Fernandes",
+      "nomeMae": "Clotilde Matias",
+      "dataNascimento": "12/02/1990",
+      "cpf": "123.446.678-88",
+      "cns": "348576823578667",
+      "endereco": {
+        "cep": "65054005",
+        "logradouro": "Estrada de Ribamar",
+        "bairro": "Forquilha",
+        "cidade": "São Luís",
+        "estado": "MA"
+      },
+      "id": 6
     }
   ]
 }
