@@ -404,7 +404,7 @@ export default {
           const id = this.$route.params.id;
           try {
             await api.put(`/pacientes/${id}`, data);
-            document.querySelector('form').reset();
+            this.$router.push({ name: 'pacientes' });
           } catch (error) {
             console.warn(error);
           }
