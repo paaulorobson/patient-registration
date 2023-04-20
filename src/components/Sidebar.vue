@@ -7,7 +7,7 @@
     <img class="p-4" src="../assets/logo-om30.png" alt="logo om30" v-show="!dataOpenSidebar" />
     <div class="h-[calc(100vh-50px) py-[50px]">
       <router-link
-        to="pacientes"
+        to="/pacientes"
         :class="{
           'inline-flex relative items-center py-[10px] pl-2 w-full text-lg font-medium border-gray-200 hover:bg-white hover:text-gray-800 transition duration-400 ease-in-out': true,
           'inline-flex bg-white relative items-center py-[10px] pl-2 w-full text-lg font-medium border-gray-200 hover:bg-white hover:text-gray-800 transition duration-400 ease-in-out':
@@ -19,7 +19,7 @@
       </router-link>
 
       <router-link
-        to="adicionar-pacientes"
+        to="/adicionar-pacientes"
         :class="{
           'inline-flex relative items-center py-[10px] pl-2 w-full text-lg font-medium border-gray-200 hover:bg-white hover:text-gray-800 transition duration-400 ease-in-out': true,
           'inline-flex relative bg-white items-center py-[10px] pl-2 w-full text-lg font-medium border-gray-200 hover:bg-white hover:text-gray-800 transition duration-400 ease-in-out':
@@ -42,6 +42,10 @@ export default {
       type: Boolean,
       default: true,
     },
+  },
+
+  created() {
+    this.$router.push({ name: 'pacientes' });
   },
 };
 </script>
