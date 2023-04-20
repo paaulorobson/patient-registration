@@ -94,7 +94,7 @@
 import ModalConfirma from './ModalConfirma.vue';
 import api from '../service/api';
 export default {
-  name: 'PacientesTable',
+  name: 'ListaPacientes',
 
   components: {
     ModalConfirma,
