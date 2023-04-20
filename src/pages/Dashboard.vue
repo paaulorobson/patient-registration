@@ -6,19 +6,23 @@
       <div class="h-[calc(100vh-50px) py-[20px]">
         <router-link
           to="/"
-          class="inline-flex relative items-center py-[10px] pl-2 w-full text-lg font-medium border-gray-200 hover:bg-gray-300 hover:text-gray-800 transition duration-400 ease-in-out"
+          :class="{
+            'inline-flex relative items-center py-[10px] pl-2 w-full text-lg font-medium border-gray-200 hover:bg-gray-300 hover:text-gray-800 transition duration-400 ease-in-out': true,
+            'inline-flex bg-gray-300 relative items-center py-[10px] pl-2 w-full text-lg font-medium border-gray-200 hover:bg-gray-300 hover:text-gray-800 transition duration-400 ease-in-out':
+              $route.path === '/',
+          }"
         >
-          <img
-            class="w-[25px] h-[25px] mr-2"
-            src="../assets/medical-chart.svg"
-            alt="icon prontuario"
-          />
+          <img class="w-[25px] h-[25px] mr-2" src="../assets/medical.svg" alt="icon prontuario" />
           Pacientes
         </router-link>
 
         <router-link
           to="/adicionar-pacientes"
-          class="inline-flex relative items-center py-[10px] pl-2 w-full text-lg font-medium border-gray-200 hover:bg-gray-300 hover:text-gray-800 transition duration-400 ease-in-out"
+          :class="{
+            'inline-flex relative items-center py-[10px] pl-2 w-full text-lg font-medium border-gray-200 hover:bg-gray-300 hover:text-gray-800 transition duration-400 ease-in-out': true,
+            'inline-flex relative bg-gray-300 items-center py-[10px] pl-2 w-full text-lg font-medium border-gray-200 hover:bg-gray-300 hover:text-gray-800 transition duration-400 ease-in-out':
+              $route.path === '/adicionar-pacientes',
+          }"
         >
           <img class="w-[25px] h-[25px] mr-2" src="../assets/add.svg" alt="icon prontuario" />
           Adicionar pacientes
