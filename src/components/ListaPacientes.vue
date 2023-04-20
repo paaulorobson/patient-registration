@@ -1,7 +1,7 @@
 <template>
   <div class="overflow-x-auto relative sm:rounded-lg py-5">
     <div class="w-[calc(100%-200px)] flex justify-start">
-      <form class="flex items-center w-[500px]">
+      <form class="flex items-center w-[500px] sm:w-[500px]">
         <label for="voice-search" class="sr-only">Search</label>
         <div class="relative w-full mb-5">
           <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -31,7 +31,9 @@
         </div>
       </form>
     </div>
-    <table class="w-full text-left text-gray-500 dark:text-gray-400">
+    <table
+      class="w-full text-left text-gray-500 dark:text-gray-400 overflow-x-auto sm:overflow-x-none"
+    >
       <thead class="text-xs uppercase bg-[#1C242D] text-white">
         <tr>
           <th scope="col" class="py-3 px-6">ID</th>
@@ -56,7 +58,7 @@
           <td class="py-4 px-6 text-gray-700">
             {{ paciente.nome }}
           </td>
-          <td class="py-4 px-6 text-right">
+          <td class="py-4 px-6 text-right flex sm:block">
             <button
               class="bg-green-500 hover:bg-green-400 text-white text-xs font-bold py-2 px-2 mr-2 rounded"
               @click="getPacienteById(paciente.id)"

@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="h-screen bg-[#F1E6EA]"
+    class="h-screen bg-[#F1E6EA] hidden sm:block"
     id="sidebar"
     :class="{ 'sidebar-visible': true, 'sidebar-close': dataOpenSidebar }"
   >
@@ -9,20 +9,20 @@
       <router-link
         to="/pacientes"
         :class="{
-          'inline-flex relative items-center py-[10px] pl-2 w-full text-lg font-medium border-gray-200 hover:bg-white hover:text-gray-800 transition duration-400 ease-in-out': true,
-          'inline-flex bg-white relative items-center py-[10px] pl-2 w-full text-lg font-medium border-gray-200 hover:bg-white hover:text-gray-800 transition duration-400 ease-in-out':
+          'inline-flex relative items-center py-[10px] pl-2 w-full text-sm sm:text-lg font-medium border-gray-200 hover:bg-white hover:text-gray-800 transition duration-400 ease-in-out': true,
+          'inline-flex bg-white relative items-center py-[10px] pl-2 w-full text-sm sm:text-lg font-medium border-gray-200 hover:bg-white hover:text-gray-800 transition duration-400 ease-in-out':
             $route.path === '/pacientes',
         }"
       >
         <img class="w-[25px] h-[25px] mr-2" src="../assets/medical.svg" alt="icon prontuario" />
-        <span v-show="!dataOpenSidebar">Pacientes</span>
+        <span v-show="!dataOpenSidebar" class="hidden sm:block">Pacientes</span>
       </router-link>
 
       <router-link
         to="/adicionar-pacientes"
         :class="{
-          'inline-flex relative items-center py-[10px] pl-2 w-full text-lg font-medium border-gray-200 hover:bg-white hover:text-gray-800 transition duration-400 ease-in-out': true,
-          'inline-flex relative bg-white items-center py-[10px] pl-2 w-full text-lg font-medium border-gray-200 hover:bg-white hover:text-gray-800 transition duration-400 ease-in-out':
+          'inline-flex relative items-center py-[10px] pl-2 w-full text-sm sm:text-lg font-medium border-gray-200 hover:bg-white hover:text-gray-800 transition duration-400 ease-in-out': true,
+          'inline-flex relative bg-white items-center py-[10px] pl-2 w-full text-sm sm:text-lg font-medium border-gray-200 hover:bg-white hover:text-gray-800 transition duration-400 ease-in-out':
             $route.path === '/adicionar-pacientes',
         }"
       >
