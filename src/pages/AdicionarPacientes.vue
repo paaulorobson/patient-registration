@@ -4,7 +4,7 @@
     <form class="mt-5 pr-10 pb-10" @submit.prevent="submitForm">
       <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-1 sm:grid-cols-6">
         <div class="sm:col-span-3 mb-5">
-          <label for="file" class="block text-sm font-medium leading-6 text-gray-900 text-left">
+          <label class="block text-sm font-medium leading-6 text-gray-900 text-left">
             Selecione uma foto
           </label>
           <div v-if="imageUrl" class="flex items-end">
@@ -440,7 +440,9 @@ export default {
     },
 
     removerImg() {
-      (this.imageUrl = null), (this.image = null), (this.$refs.fileInput.value = '');
+      this.imageUrl = null;
+      this.image = null;
+      this.$refs.fileInput.value = '';
     },
 
     async buscarEndereco() {
@@ -501,6 +503,7 @@ export default {
         const id = this.$route.params.id;
         try {
           const response = await api.get(`/pacientes/${id}`);
+          this.imageUrl = response.data.image;
           this.nome = response.data.nome;
           this.nomeMae = response.data.nomeMae;
           this.dataNascimento = response.data.dataNascimento;
