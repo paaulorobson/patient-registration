@@ -3,6 +3,57 @@
     <h1 class="text-lg font-bold text-[#1C242D] text-left uppercase mt-5">Adicionar paciente</h1>
     <form class="mt-5 pr-10 pb-10" @submit.prevent="submitForm">
       <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-1 sm:grid-cols-6">
+        <div class="sm:col-span-3 mb-5">
+          <label for="file" class="block text-sm font-medium leading-6 text-gray-900 text-left">
+            Selecione uma foto
+          </label>
+          <div v-if="imageUrl" class="flex items-end">
+            <img class="w-24 rounded mt-5" :src="imageUrl" alt="avatar" />
+            <img
+              src="../assets/bin.svg"
+              class="w-5 cursor-pointer ml-2"
+              alt="lixeira"
+              @click="removerImg"
+            />
+          </div>
+          <div class="mt-2 text-left flex items-center">
+            <input
+              class="hidden"
+              type="file"
+              id="file"
+              ref="fileInput"
+              @change="onFileChange"
+              accept="image/*"
+            />
+            <button
+              @click.prevent="$refs.fileInput.click()"
+              :class="{
+                'flex items-center rounded bg-white px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-gray-900 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-gray-200 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]]': true,
+                'flex items-center opacity-50 w-40 text-center  pointer-events-none rounded bg-white px-6 pb-2 pt-2.5 text-sm font-medium leading-normal text-gray-900 shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-gray-200 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]]':
+                  imageUrl,
+              }"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="mr-1 h-4 w-4 text-gray-500"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M19.5 21a3 3 0 003-3V9a3 3 0 00-3-3h-5.379a.75.75 0 01-.53-.22L11.47 3.66A2.25 2.25 0 009.879 3H4.5a3 3 0 00-3 3v12a3 3 0 003 3h15zm-6.75-10.5a.75.75 0 00-1.5 0v4.19l-1.72-1.72a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l3-3a.75.75 0 10-1.06-1.06l-1.72 1.72V10.5z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Upload foto
+            </button>
+            <p
+              class="w-[300px] h-[33px] bg-white border-t-1 border border-l-0 px-6 pb-2 pt-2.5 leading-3 text-sm text-gray-500"
+            >
+              {{ image?.name ?? 'Nenhum arquivo selecionado' }}
+            </p>
+          </div>
+        </div>
         <div class="col-span-full">
           <label for="nome" class="block text-sm font-medium leading-6 text-gray-900 text-left">
             Nome completo
@@ -315,6 +366,8 @@ export default {
 
   data() {
     return {
+      image: null,
+      imageUrl: '',
       nome: '',
       nomeMae: '',
       dataNascimento: '',
@@ -370,6 +423,26 @@ export default {
   },
 
   methods: {
+    onFileChange(event) {
+      const extensoesValidas = ['jpg', 'jpeg', 'png'];
+      const files = event.target.files;
+      let fileName = files[0].name;
+      const extensao = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+      if (extensoesValidas.indexOf(extensao) === -1) {
+        return alert('Por favor adicione uma imagem válida!');
+      }
+      const fileReader = new FileReader();
+      fileReader.addEventListener('load', () => {
+        this.imageUrl = fileReader.result;
+      });
+      fileReader.readAsDataURL(files[0]);
+      this.image = files[0];
+    },
+
+    removerImg() {
+      (this.imageUrl = null), (this.image = null), (this.$refs.fileInput.value = '');
+    },
+
     async buscarEndereco() {
       if (this.cep.length === 8) {
         try {
@@ -387,6 +460,7 @@ export default {
     async submitForm() {
       if (!this.$v.$error) {
         const data = {
+          image: this.imageUrl,
           nome: this.nome,
           nomeMae: this.nomeMae,
           dataNascimento: this.dataNascimento,
@@ -411,6 +485,7 @@ export default {
         } else {
           try {
             await api.post('/pacientes', data);
+            this.imageUrl = null;
             document.querySelector('form').reset();
           } catch (error) {
             console.warn(error);

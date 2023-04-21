@@ -40,7 +40,7 @@ export default {
   props: {
     dataOpenSidebar: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
 
