@@ -38,6 +38,8 @@
         <tr>
           <th scope="col" class="py-3 px-6">ID</th>
 
+          <th scope="col" class="py-3 px-6">Avatar</th>
+
           <th scope="col" class="py-3 px-6">Nome do Paciente</th>
 
           <th scope="col" class="py-3 px-6 text-right">Ação</th>
@@ -55,6 +57,26 @@
           >
             {{ paciente.id }}
           </td>
+
+          <td
+            scope="row"
+            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap Wdark:text-white"
+          >
+            <img
+              :src="paciente.image ? paciente.image : '../assets/placeholder-image.jpg'"
+              alt="avatar"
+              class="w-10 rounded-full"
+              v-if="paciente.image"
+            />
+
+            <img
+              v-else
+              src="../assets/placeholder-image.jpg"
+              alt="avatar"
+              class="w-10 rounded-full"
+            />
+          </td>
+
           <td class="py-4 px-6 text-gray-700">
             {{ paciente.nome }}
           </td>

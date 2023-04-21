@@ -4,9 +4,17 @@
       <div class="text-left mx-50 my-0">
         <div class="block items-center mb-5 sm:flex">
           <img
+            v-if="paciente.image"
+            class="w-20 h-20 mx-auto my-0 sm:ml-5 p-1 text-center rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+            :src="paciente.image"
+            alt="avatar"
+          />
+
+          <img
+            v-else
             class="w-20 h-20 mx-auto my-0 sm:ml-5 p-1 text-center rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
             src="../assets/placeholder-image.jpg"
-            alt="Bordered avatar"
+            alt="avatar"
           />
           <div class="ml-2">
             <h1 class="ml-2 text-sm sm:text-2xl mt-2 w-[200px] text-center sm:text-left">
