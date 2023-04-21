@@ -63,8 +63,7 @@
               type="text"
               name="nome"
               id="nome"
-              v-model="nome"
-              @change="$v.nome.$touch()"
+              v-model="$v.nome.$model"
               :class="{
                 'block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6':
                   !$v.nome.$error,
@@ -88,8 +87,7 @@
               type="text"
               name="nomeMae"
               id="nomeMae"
-              v-model="nomeMae"
-              @change="$v.nomeMae.$touch()"
+              v-model="$v.nomeMae.$model"
               :class="{
                 'block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6':
                   !$v.nomeMae.$error,
@@ -116,8 +114,7 @@
               type="text"
               name="dataNascimento"
               id="dataNascimento"
-              v-model="dataNascimento"
-              @change="$v.dataNascimento.$touch()"
+              v-model="$v.dataNascimento.$model"
               v-mask="'##/##/####'"
               placeholder="--/--/---"
               :class="{
@@ -143,8 +140,7 @@
               type="text"
               name="cpf"
               id="cpf"
-              v-model="cpf"
-              @change="$v.cpf.$touch()"
+              v-model="$v.cpf.$model"
               v-mask="'###.###.###-##'"
               placeholder="___.___.___-__"
               :class="{
@@ -168,8 +164,7 @@
               type="text"
               name="cns"
               id="cns"
-              v-model="cns"
-              @change="$v.cns.$touch()"
+              v-model="$v.cns.$model"
               :class="{
                 'block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6':
                   !$v.cns.$error,
@@ -206,8 +201,7 @@
               type="text"
               name="cep"
               id="cep"
-              v-model="cep"
-              @change="$v.cep.$touch()"
+              v-model="$v.cep.$model"
               @blur="buscarEndereco"
               :class="{
                 'block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6':
@@ -245,8 +239,7 @@
               type="text"
               name="logradouro"
               id="logradouro"
-              v-model="logradouro"
-              @change="$v.logradouro.$touch()"
+              v-model="$v.logradouro.$model"
               :class="{
                 'block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6':
                   !$v.logradouro.$error,
@@ -271,8 +264,7 @@
               type="text"
               name="bairro"
               id="bairro"
-              v-model="bairro"
-              @change="$v.bairro.$touch()"
+              v-model="$v.bairro.$model"
               :class="{
                 'block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6':
                   !$v.bairro.$error,
@@ -297,8 +289,7 @@
               type="text"
               name="cidade"
               id="cidade"
-              v-model="cidade"
-              @change="$v.cidade.$touch()"
+              v-model="$v.cidade.$model"
               :class="{
                 'block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6':
                   !$v.cidade.$error,
@@ -323,8 +314,7 @@
               type="text"
               name="estado"
               id="estado"
-              v-model="estado"
-              @change="$v.estado.$touch()"
+              v-model="$v.estado.$model"
               :class="{
                 'block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6':
                   !$v.estado.$error,
@@ -460,41 +450,52 @@ export default {
     },
 
     async submitForm() {
-      if (!this.$v.$error) {
-        const data = {
-          image: this.imageUrl,
-          nome: this.nome,
-          nomeMae: this.nomeMae,
-          dataNascimento: this.dataNascimento,
-          cpf: this.cpf,
-          cns: this.cns,
-          endereco: {
-            cep: this.cep,
-            logradouro: this.logradouro,
-            bairro: this.bairro,
-            cidade: this.cidade,
-            estado: this.estado,
-          },
-        };
-        if (this.$route.params.id) {
-          const id = this.$route.params.id;
-          try {
-            await api.put(`/pacientes/${id}`, data);
-            this.$router.push({ name: 'pacientes' });
-          } catch (error) {
-            console.warn(error);
-          }
-        } else {
-          try {
-            await api.post('/pacientes', data);
-            this.imageUrl = null;
-            document.querySelector('form').reset();
-          } catch (error) {
-            console.warn(error);
-          }
+      if (this.$v.$invalid) {
+        return;
+      }
+      const formData = {
+        image: this.imageUrl,
+        nome: this.nome,
+        nomeMae: this.nomeMae,
+        dataNascimento: this.dataNascimento,
+        cpf: this.cpf,
+        cns: this.cns,
+        endereco: {
+          cep: this.cep,
+          logradouro: this.logradouro,
+          bairro: this.bairro,
+          cidade: this.cidade,
+          estado: this.estado,
+        },
+      };
+      if (this.$route.params.id) {
+        const id = this.$route.params.id;
+        try {
+          await api.put(`/pacientes/${id}`, formData);
+          this.$router.push({ name: 'pacientes' });
+        } catch (error) {
+          console.warn(error);
         }
       } else {
-        this.$v.$touch();
+        try {
+          await api.post('/pacientes', formData);
+          this.image = null;
+          this.imageUrl = null;
+          this.nome = null;
+          this.nomeMae = null;
+          this.dataNascimento = null;
+          this.cpf = null;
+          this.cns = null;
+          this.cep = null;
+          this.logradouro = null;
+          this.bairro = null;
+          this.cidade = null;
+          this.estado = null;
+
+          this.$v.$reset();
+        } catch (error) {
+          console.warn(error);
+        }
       }
     },
 
