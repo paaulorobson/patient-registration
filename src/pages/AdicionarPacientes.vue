@@ -71,8 +71,8 @@
                   $v.nome.$error,
               }"
             />
-            <div class="text-left">
-              <span v-if="$v.nome.$error" class="text-sm text-red-500">
+            <div class="text-left" v-if="$v.nome.$error">
+              <span v-if="!$v.nome.required" class="text-sm text-red-500">
                 Este campo é requerido</span
               >
             </div>
@@ -95,8 +95,8 @@
                   $v.nomeMae.$error,
               }"
             />
-            <div class="text-left">
-              <span v-if="$v.nomeMae.$error" class="text-sm text-red-500">
+            <div class="text-left" v-if="$v.nomeMae.$error">
+              <span v-if="!$v.nomeMae.required" class="text-sm text-red-500">
                 Este campo é requerido</span
               >
             </div>
@@ -116,7 +116,7 @@
               id="dataNascimento"
               v-model="$v.dataNascimento.$model"
               v-mask="'##/##/####'"
-              placeholder="--/--/---"
+              placeholder="DD/MM/YYYY"
               :class="{
                 'block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6':
                   !$v.dataNascimento.$error,
@@ -124,8 +124,8 @@
                   $v.dataNascimento.$error,
               }"
             />
-            <div class="text-left">
-              <span v-if="$v.dataNascimento.$error" class="text-sm text-red-500">
+            <div class="text-left" v-if="$v.dataNascimento.$error">
+              <span v-if="!$v.dataNascimento.required" class="text-sm text-red-500">
                 Este campo é requerido</span
               >
             </div>
@@ -142,7 +142,7 @@
               id="cpf"
               v-model="$v.cpf.$model"
               v-mask="'###.###.###-##'"
-              placeholder="___.___.___-__"
+              placeholder="000.000.000-00"
               :class="{
                 'block w-full rounded-md border-0 py-1.5 px-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6':
                   !$v.cpf.$error,
@@ -150,8 +150,10 @@
                   $v.cpf.$error,
               }"
             />
-            <div class="text-left">
-              <span v-if="$v.cpf.$error" class="text-sm text-red-500"> Este campo é requerido</span>
+            <div class="text-left" v-if="$v.cpf.$error">
+              <span v-if="!$v.cpf.required" class="text-sm text-red-500">
+                Este campo é requerido</span
+              >
             </div>
           </div>
         </div>
@@ -172,7 +174,7 @@
                   $v.cns.$error,
               }"
             />
-            <div class="text-left">
+            <div class="text-left" v-if="$v.cns.$error">
               <span v-if="!$v.cns.required && $v.cns.$dirty" class="text-sm text-red-500">
                 O CNS é requerido.
               </span>
@@ -210,7 +212,7 @@
                   $v.cep.$error,
               }"
             />
-            <div class="text-left">
+            <div class="text-left" v-if="$v.cep.$error">
               <span v-if="!$v.cep.required && $v.cep.$dirty" class="text-sm text-red-500">
                 Este campo é requerido</span
               >
@@ -247,8 +249,8 @@
                   $v.logradouro.$error,
               }"
             />
-            <div class="text-left">
-              <span v-if="$v.logradouro.$error" class="text-sm text-red-500">
+            <div class="text-left" v-if="$v.logradouro.$error">
+              <span v-if="!$v.logradouro.required" class="text-sm text-red-500">
                 Este campo é requerido</span
               >
             </div>
@@ -272,8 +274,8 @@
                   $v.bairro.$error,
               }"
             />
-            <div class="text-left">
-              <span v-if="$v.bairro.$error" class="text-sm text-red-500">
+            <div class="text-left" v-if="$v.bairro.$error">
+              <span v-if="!$v.bairro.required" class="text-sm text-red-500">
                 Este campo é requerido</span
               >
             </div>
@@ -297,8 +299,8 @@
                   $v.cidade.$error,
               }"
             />
-            <div class="text-left">
-              <span v-if="$v.cidade.$error" class="text-sm text-red-500">
+            <div class="text-left" v-if="$v.cidade.$error">
+              <span v-if="!$v.cidade.required" class="text-sm text-red-500">
                 Este campo é requerido</span
               >
             </div>
@@ -322,8 +324,8 @@
                   $v.estado.$error,
               }"
             />
-            <div class="text-left">
-              <span v-if="$v.estado.$error" class="text-sm text-red-500">
+            <div class="text-left" v-if="$v.estado.$error">
+              <span v-if="!$v.estado.required" class="text-sm text-red-500">
                 Este campo é requerido</span
               >
             </div>
@@ -372,8 +374,8 @@ export default {
   },
 
   validations: {
-    nome: { required, minLength: minLength(3) },
-    nomeMae: { required, minLength: minLength(3) },
+    nome: { required },
+    nomeMae: { required },
     dataNascimento: { required },
     cpf: { required },
     cns: {

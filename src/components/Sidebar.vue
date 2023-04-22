@@ -43,10 +43,6 @@ export default {
       default: false,
     },
   },
-
-  created() {
-    this.$router.push({ name: 'pacientes' });
-  },
 };
 </script>
 
