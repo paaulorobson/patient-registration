@@ -26,12 +26,13 @@
             class="block w-full rounded-md pl-10 p-2.5 border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 sm:text-sm sm:leading-6"
             placeholder="Search..."
             required
-            v-model="busca"
+            v-model="searchQuery"
           />
         </div>
       </form>
     </div>
     <table
+      v-if="pacientes.lenght === 0"
       class="w-full text-left text-gray-500 dark:text-gray-400 overflow-x-auto sm:overflow-x-none"
     >
       <thead class="text-xs uppercase bg-[#1C242D] text-white">
@@ -48,7 +49,7 @@
       <tbody>
         <tr
           class="bg-white border-b dark:border-gray-700"
-          v-for="paciente in pacientesFiltrado"
+          v-for="paciente in pacientesFiltrados"
           :key="paciente.id"
         >
           <td
@@ -65,7 +66,7 @@
             <img
               :src="paciente.image ? paciente.image : '../assets/placeholder-image.jpg'"
               alt="avatar"
-              class="w-10 rounded-full"
+              class="w-10 h-10 rounded-full"
               v-if="paciente.image"
             />
 
@@ -105,6 +106,7 @@
         </tr>
       </tbody>
     </table>
+    <div v-else>Não possui dados</div>
     <ModalConfirma
       :paciente="pacientes"
       :openModal="showModal"
@@ -116,7 +118,7 @@
 
 <script>
 import ModalConfirma from './ModalConfirma.vue';
-import api from '../service/api';
+import { mapState, mapActions, mapGetters } from 'vuex';
 export default {
   name: 'ListaPacientes',
 
@@ -126,18 +128,15 @@ export default {
 
   data() {
     return {
-      busca: '',
       pacienteSelecionado: null,
       showModal: false,
-      pacientes: [],
+      searchQuery: '',
     };
   },
 
-  computed: {
-    pacientesFiltrado() {
-      return this.pacientes.filter((item) =>
-        item.nome.toLowerCase().includes(this.busca.toLowerCase())
-      );
+  watch: {
+    searchQuery(newValue) {
+      this.setBusca(newValue);
     },
   },
 
@@ -145,15 +144,13 @@ export default {
     this.getPacientes();
   },
 
+  computed: {
+    ...mapState(['pacientes', 'busca']),
+    ...mapGetters(['pacientesFiltrados']),
+  },
+
   methods: {
-    async getPacientes() {
-      try {
-        const { data } = await api.get('/pacientes');
-        this.pacientes = data;
-      } catch (error) {
-        console.warn(error);
-      }
-    },
+    ...mapActions(['getPacientes', 'setBusca', 'deletePacienteById']),
 
     getPacienteById(id) {
       this.$router.push({ name: 'paciente', params: { id: id } });
@@ -172,17 +169,9 @@ export default {
       this.showModal = !this.showModal;
     },
 
-    async deletePaciente() {
-      try {
-        await api.delete(`/pacientes/${this.pacienteSelecionado}`);
-        this.$toast.success('Paciente deletado com sucesso!');
-
-        this.pacientes = this.pacientes.filter(
-          (paciente) => paciente.id !== this.pacienteSelecionado
-        );
-      } catch (error) {
-        console.warn(error);
-      }
+    deletePaciente() {
+      this.deletePacienteById(this.pacienteSelecionado);
+      this.$toast.success('Paciente deletado com sucesso!');
       this.showModal = false;
     },
   },

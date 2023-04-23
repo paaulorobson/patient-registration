@@ -47,31 +47,22 @@
 </template>
 
 <script>
-import api from '../service/api';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'Paciente',
 
-  data() {
-    return {
-      paciente: '',
-    };
+  created() {
+    const id = this.$route.params.id;
+    this.getPacienteById(id);
   },
 
-  created() {
-    this.getPaciente();
+  computed: {
+    ...mapState(['paciente']),
   },
 
   methods: {
-    async getPaciente() {
-      const id = this.$route.params.id;
-      try {
-        const { data } = await api.get(`/pacientes/${id}`);
-        this.paciente = data;
-      } catch (error) {
-        console.warn(error);
-      }
-    },
+    ...mapActions(['getPacienteById']),
   },
 };
 </script>

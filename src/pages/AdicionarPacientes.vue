@@ -334,6 +334,12 @@
       </div>
       <div class="mt-6 flex items-center justify-end gap-x-6">
         <button
+          @click.prevent="cancel"
+          class="rounded-md bg-white px-3 w-40 py-2 text-center text-sm font-semibold text-blue-500 shadow-sm hover:bg-blue-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+        >
+          Cancelar
+        </button>
+        <button
           type="submit"
           :class="{
             'rounded-md bg-blue-500 px-3 w-40 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2': true,
@@ -350,7 +356,7 @@
 
 <script>
 import axios from 'axios';
-import api from '../service/api';
+import { mapActions, mapState } from 'vuex';
 import { required, numeric, minLength, maxLength } from 'vuelidate/lib/validators';
 
 export default {
@@ -396,11 +402,35 @@ export default {
     estado: { required },
   },
 
-  mounted() {
-    this.getPaciente();
+  created() {
+    if (this.$route.params.id) {
+      this.getPaciente();
+    }
+  },
+
+  watch: {
+    pacienteEstado: {
+      handler(paciente) {
+        this.imageUrl = paciente.image;
+        this.nome = paciente.nome;
+        this.nomeMae = paciente.nomeMae;
+        this.dataNascimento = paciente.dataNascimento;
+        this.cpf = paciente.cpf;
+        this.cns = paciente.cns;
+        this.cep = paciente.endereco.cep;
+        this.logradouro = paciente.endereco.logradouro;
+        this.bairro = paciente.endereco.bairro;
+        this.cidade = paciente.endereco.cidade;
+        this.estado = paciente.endereco.estado;
+      },
+    },
   },
 
   computed: {
+    ...mapState({
+      pacienteEstado: (state) => state.paciente,
+    }),
+
     formIncomplete() {
       return this.$v.$invalid;
     },
@@ -415,6 +445,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(['postPaciente', 'putPaciente', 'getPacienteById']),
+
     onFileChange(event) {
       const extensoesValidas = ['jpg', 'jpeg', 'png'];
       const files = event.target.files;
@@ -451,11 +483,16 @@ export default {
       }
     },
 
+    cancel() {
+      this.$router.push({ name: 'pacientes' });
+    },
+
     async submitForm() {
       if (this.$v.$invalid) {
         return;
       }
       const formData = {
+        id: this.$route.params.id,
         image: this.imageUrl,
         nome: this.nome,
         nomeMae: this.nomeMae,
@@ -471,59 +508,32 @@ export default {
         },
       };
       if (this.$route.params.id) {
-        const id = this.$route.params.id;
-        try {
-          await api.put(`/pacientes/${id}`, formData);
-          this.$toast.success('Paciente editado com sucesso!');
-
-          this.$router.push({ name: 'pacientes' });
-        } catch (error) {
-          console.warn(error);
-        }
+        this.putPaciente(formData);
+        this.$toast.success('Paciente editado com sucesso!');
+        this.$router.push({ name: 'pacientes' });
       } else {
-        try {
-          await api.post('/pacientes', formData);
-          this.$toast.success('Paciente cadastrado com sucesso!');
-          this.image = null;
-          this.imageUrl = null;
-          this.nome = null;
-          this.nomeMae = null;
-          this.dataNascimento = null;
-          this.cpf = null;
-          this.cns = null;
-          this.cep = null;
-          this.logradouro = null;
-          this.bairro = null;
-          this.cidade = null;
-          this.estado = null;
+        this.postPaciente(formData);
+        this.$toast.success('Paciente cadastrado com sucesso!');
+        this.image = null;
+        this.imageUrl = null;
+        this.nome = null;
+        this.nomeMae = null;
+        this.dataNascimento = null;
+        this.cpf = null;
+        this.cns = null;
+        this.cep = null;
+        this.logradouro = null;
+        this.bairro = null;
+        this.cidade = null;
+        this.estado = null;
 
-          this.$v.$reset();
-        } catch (error) {
-          console.warn(error);
-        }
+        this.$v.$reset();
       }
     },
 
-    async getPaciente() {
-      if (this.$route.params.id) {
-        const id = this.$route.params.id;
-        try {
-          const response = await api.get(`/pacientes/${id}`);
-          this.imageUrl = response.data.image;
-          this.nome = response.data.nome;
-          this.nomeMae = response.data.nomeMae;
-          this.dataNascimento = response.data.dataNascimento;
-          this.cpf = response.data.cpf;
-          this.cns = response.data.cns;
-          this.cep = response.data.endereco.cep;
-          this.logradouro = response.data.endereco.logradouro;
-          this.bairro = response.data.endereco.bairro;
-          this.cidade = response.data.endereco.cidade;
-          this.estado = response.data.endereco.estado;
-        } catch (error) {
-          console.warn(error);
-        }
-      }
+    getPaciente() {
+      const id = this.$route.params.id;
+      this.getPacienteById(id);
     },
   },
 };
