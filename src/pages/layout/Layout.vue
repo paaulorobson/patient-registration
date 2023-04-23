@@ -28,7 +28,7 @@ export default {
 
   data() {
     return {
-      openSidebar: true,
+      openSidebar: false,
     };
   },
 
