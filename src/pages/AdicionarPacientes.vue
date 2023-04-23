@@ -48,7 +48,7 @@
               Upload foto
             </button>
             <p
-              class="w-[300px] h-[33px] bg-white border-t-1 border border-l-0 px-6 pb-2 pt-2.5 leading-3 text-sm text-gray-500"
+              class="w-[300px] h-[33px] bg-white border-t-1 border border-l-0 px-6 pb-2 pt-2.5 leading-3 text-xs sm:text-sm text-gray-500"
             >
               {{ image?.name ?? 'Nenhum arquivo selecionado' }}
             </p>

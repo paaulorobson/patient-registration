@@ -1,10 +1,15 @@
 <template>
-  <div class="w-full h-full flex">
-    <Sidebar :dataOpenSidebar="openSidebar" />
-    <div class="w-full h-full">
-      <HeaderTop :dataOpenSidebar="openSidebar" @clickToogle="toogleSidebar" />
-      <div class="w-full h-[calc(100vh - 50px)] px-10">
-        <router-view></router-view>
+  <div class="flex flex-col h-screen">
+    <div class="flex-1 flex">
+      <div class="h-full bg-[#F1E6EA]">
+        <Sidebar :dataOpenSidebar="openSidebar" />
+      </div>
+      <div class="flex-1">
+        <HeaderTop :dataOpenSidebar="openSidebar" @clickToogle="toogleSidebar" />
+
+        <div class="px-10">
+          <router-view></router-view>
+        </div>
       </div>
     </div>
   </div>
