@@ -175,6 +175,8 @@ export default {
     async deletePaciente() {
       try {
         await api.delete(`/pacientes/${this.pacienteSelecionado}`);
+        this.$toast.success('Paciente deletado com sucesso!');
+
         this.pacientes = this.pacientes.filter(
           (paciente) => paciente.id !== this.pacienteSelecionado
         );

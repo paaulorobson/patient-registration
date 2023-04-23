@@ -481,6 +481,7 @@ export default {
       } else {
         try {
           await api.post('/pacientes', formData);
+          this.$toast.success('Paciente cadastrado com sucesso!');
           this.image = null;
           this.imageUrl = null;
           this.nome = null;
