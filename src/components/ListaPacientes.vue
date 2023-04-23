@@ -32,7 +32,7 @@
       </form>
     </div>
     <table
-      v-if="pacientes.lenght === 0"
+      v-if="pacientes.lenght !== 0"
       class="w-full text-left text-gray-500 dark:text-gray-400 overflow-x-auto sm:overflow-x-none"
     >
       <thead class="text-xs uppercase bg-[#1C242D] text-white">
@@ -106,7 +106,10 @@
         </tr>
       </tbody>
     </table>
-    <div v-else>Não possui dados</div>
+    <div v-else class="flex flex-col justify-center align-center mt-10">
+      <img src="../assets/empty.svg" alt="planilha vazia" class="w-28 my-0 mx-auto mb-5" />
+      <p class="text-sm font-bold uppercase">Não possui pacientes!</p>
+    </div>
     <ModalConfirma
       :paciente="pacientes"
       :openModal="showModal"
