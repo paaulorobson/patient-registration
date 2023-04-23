@@ -474,6 +474,8 @@ export default {
         const id = this.$route.params.id;
         try {
           await api.put(`/pacientes/${id}`, formData);
+          this.$toast.success('Paciente editado com sucesso!');
+
           this.$router.push({ name: 'pacientes' });
         } catch (error) {
           console.warn(error);
