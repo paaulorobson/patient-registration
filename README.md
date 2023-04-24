@@ -1,5 +1,8 @@
 # Projeto - Cadastro de pacientes
 
+![alt text](preview/preview.png)
+
+
 ## Objetivo
 
 Mini projeto de cadastro de pacientes, aonde possui as seguintes funcionalidades:
