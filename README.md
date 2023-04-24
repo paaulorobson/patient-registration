@@ -1,16 +1,39 @@
-# cadastro-pacientes
+# Projeto - Cadastro de pacientes
 
-## Project setup
+## Objetivo
+
+Mini projeto de cadastro de pacientes, aonde possui as seguintes funcionalidades:
+
+-  Cadastrar um paciente (Seguindo as definidas validações e campos);
+-  Visualizar a listagem dos pacientes;
+-  Visualizar um pacientes específico;
+-  Editar um paciente cadastrado;
+-  Deletar um paciente;
+-  Realizar uma busca por nome do paciente;
+
+
+## Configuração do projeto
+
+### Após realizar o clone do projeto no ambiente local, rode:
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Para iniciar o front end da aplicação:
+
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Para iniciar o Back end da aplicação:
+
+
+```
+npm run backend
+```
+
+### Compila e minifica para produção
 ```
 npm run build
 ```
